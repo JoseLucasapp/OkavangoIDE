@@ -1,28 +1,24 @@
-import {useState} from 'react';
-import logo from './assets/images/logo-universal.png';
-import './App.css';
-import {Greet} from "../wailsjs/go/main/App";
+import { useState } from "react";
+import Sidebar from "./components/sidebar";
+import Editor from "./components/editor";
 
 function App() {
-    const [resultText, setResultText] = useState("Please enter your name below 👇");
-    const [name, setName] = useState('');
-    const updateName = (e: any) => setName(e.target.value);
-    const updateResultText = (result: string) => setResultText(result);
+    const [code, setCode] = useState("// Selecione um arquivo");
 
-    function greet() {
-        Greet(name).then(updateResultText);
-    }
+    const openFile = async (fileName: string) => {
+        const { ReadFile } = await import("../wailsjs/go/main/App");
+        const content = await ReadFile(fileName);
+        setCode(content);
+    };
 
     return (
-        <div id="App">
-            <img src={logo} id="logo" alt="logo"/>
-            <div id="result" className="result">{resultText}</div>
-            <div id="input" className="input-box">
-                <input id="name" className="input" onChange={updateName} autoComplete="off" name="input" type="text"/>
-                <button className="btn" onClick={greet}>Greet</button>
+        <div style={{ display: "flex", height: "100vh", backgroundColor: "#282A36", alignItems: "start", justifyContent: "start" }}>
+            <Sidebar onFileClick={openFile} />
+            <div style={{ flex: 1, backgroundColor: "#282A36" }}>
+                <Editor code={code} />
             </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
