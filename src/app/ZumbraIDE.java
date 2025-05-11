@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,6 +24,7 @@ public class ZumbraIDE extends Application{
 
         Button runButton = new Button("Run");
         runButton.getStyleClass().add("run-button");
+        runButton.setMinWidth(100);
 
         runButton.setOnAction(e ->{
             try{
@@ -53,13 +55,20 @@ public class ZumbraIDE extends Application{
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        HBox layout_btn_msg = new HBox(runButton, spacer, outputText);
+        HBox layout_btn_msg = new HBox(outputText, spacer, runButton);
+
+        layout_btn_msg.setAlignment(Pos.CENTER_LEFT);
+        layout_btn_msg.setPadding(new Insets(10));
 
         VBox layout_infos_output = new VBox(layout_btn_msg, output);
         HBox layout = new HBox(editor, layout_infos_output);
+
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(10));
+
         layout.setMinWidth(800);
         layout.getStyleClass().add("layout");
-        Scene scene = new Scene(layout, 800, 600);
+        Scene scene = new Scene(layout, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/css/stylesheet.css").toExternalForm());
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
