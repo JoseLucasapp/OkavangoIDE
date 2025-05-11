@@ -50,9 +50,15 @@ public class ZumbraIDE extends Application{
 
         Text outputText = new Text("Output: ");
         outputText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        outputText.setFill(Color.rgb(248 ,248,242));
 
-        VBox layout = new VBox(editor, runButton, outputText, output);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        HBox layout_btn_msg = new HBox(runButton, spacer, outputText);
+
+        VBox layout_infos_output = new VBox(layout_btn_msg, output);
+        HBox layout = new HBox(editor, layout_infos_output);
+        layout.setMinWidth(800);
+        layout.getStyleClass().add("layout");
         Scene scene = new Scene(layout, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/css/stylesheet.css").toExternalForm());
         stage.setTitle("OkavangoIDE");
