@@ -17,7 +17,7 @@ public class ZumbraIDE extends Application{
         TextArea editor = new TextArea();
         TextArea output = new TextArea();
         output.setEditable(false);
-        editor.setMinSize(700, 500);
+        editor.getStyleClass().add("editor-canva");
 
         editor.setBackground(new Background(new BackgroundFill(Color.rgb(68,71,90), null, null)));
 
@@ -51,23 +51,12 @@ public class ZumbraIDE extends Application{
         Text outputText = new Text("Output: ");
         outputText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         outputText.setFill(Color.rgb(248 ,248,242));
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
 
-        Scene scene = new Scene(grid, 800, 600);
+        VBox layout = new VBox(editor, runButton, outputText, output);
+        Scene scene = new Scene(layout, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/css/stylesheet.css").toExternalForm());
-
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
-
-        grid.add(editor, 0, 0, 2, 1);
-        grid.add(outputText, 5, 1);
-        grid.add(runButton, 5,0);
-        grid.add(output, 6, 0);
-
-        grid.setBackground(new Background(new BackgroundFill(Color.rgb(40,42,54), null, null)));
 
         stage.show();
     }

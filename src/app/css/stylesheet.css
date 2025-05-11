@@ -8,3 +8,8 @@
     -fx-border-style: solid;
     -fx-cursor: pointer;
 }
+
+.editor-canva{
+    -fx-width: 60%;
+    -fx-height: 50%;
+}
