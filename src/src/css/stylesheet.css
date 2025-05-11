@@ -1,0 +1,10 @@
+.run-button {
+    -fx-font-size: 16px;
+    -fx-padding: 10;
+    -fx-background-color: #282a36;
+    -fx-text-fill: #f8f8f2;
+    -fx-border-color: #44475a;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-cursor: pointer;
+}

@@ -4,6 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -16,7 +19,10 @@ public class ZumbraIDE extends Application{
         output.setEditable(false);
         editor.setMinSize(700, 500);
 
+        editor.setBackground(new Background(new BackgroundFill(Color.rgb(68,71,90), null, null)));
+
         Button runButton = new Button("Run");
+        runButton.getStyleClass().add("run-button");
 
         runButton.setOnAction(e ->{
             try{
@@ -42,18 +48,22 @@ public class ZumbraIDE extends Application{
             }
         });
 
+        Text outputText = new Text("Output: ");
+        outputText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        outputText.setFill(Color.rgb(248 ,248,242));
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER_LEFT);
+        grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
 
         Scene scene = new Scene(grid, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("/css/stylesheet.css").toExternalForm());
 
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
 
         grid.add(editor, 0, 0, 2, 1);
-        grid.add(new Label("Output: "), 5, 1);
+        grid.add(outputText, 5, 1);
         grid.add(runButton, 5,0);
         grid.add(output, 6, 0);
 
