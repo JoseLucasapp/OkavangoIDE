@@ -17,6 +17,13 @@
     -fx-cursor: hand;
 }
 
+.file-btn{
+    -fx-font-size: 16px;
+    -fx-background-color: #282a36;
+    -fx-text-fill: #f8f8f2;
+    -fx-cursor: hand;
+}
+
 .text-area {
     -fx-control-inner-background: #44475a;
     -fx-background-color: #282a36;

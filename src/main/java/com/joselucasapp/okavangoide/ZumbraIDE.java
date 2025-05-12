@@ -19,11 +19,10 @@ public class ZumbraIDE extends Application{
     public void start(Stage stage){
         SelectFile selectFile = new SelectFile();
         RunCode runCode = new RunCode();
-
+        Region spacer = new Region();
         TextField textField = new TextField();
 
         TextArea editor = textField.start(800, 16, "Fira code", "text-area", Color.rgb(68,71,90), true);
-
         TextArea output = textField.start(100, 16, "Fira code", "text-area", Color.rgb(68,71,90), false);
 
         Button runButton = new Button("Run");
@@ -33,15 +32,16 @@ public class ZumbraIDE extends Application{
         runButton.setOnAction(e -> runCode.start(editor, output));
 
         Button openFile = new Button("File");
-        openFile.getStyleClass().add("run-button");
-
+        openFile.getStyleClass().add("file-btn");
         openFile.setOnAction(e-> selectFile.start(stage));
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        HBox top_bar_menu = new HBox(openFile, spacer);
-        top_bar_menu.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        HBox.setMargin(openFile, new Insets(0,0,0,20));
+
+        HBox top_bar_menu = new HBox();
+        top_bar_menu.getChildren().add(openFile);
         top_bar_menu.setPadding(new Insets(10));
+        top_bar_menu.setAlignment(Pos.CENTER);
 
         Text outputText = new Text("Output: ");
         outputText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
