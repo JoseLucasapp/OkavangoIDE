@@ -2,6 +2,10 @@
     -fx-background-color: #282a36;
 }
 
+.ide{
+   -fx-background-color: #282a36;
+}
+
 .run-button {
     -fx-font-size: 16px;
     -fx-padding: 10;
