@@ -62,9 +62,7 @@ public class ZumbraIDE extends Application{
         Button openFile = new Button("File");
         openFile.getStyleClass().add("run-button");
 
-        openFile.setOnAction(e->{
-            selectFile.start(stage);
-        });
+        openFile.setOnAction(e-> selectFile.start(stage));
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
