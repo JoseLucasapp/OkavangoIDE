@@ -20,6 +20,7 @@ public class ZumbraIDE extends Application{
     public void start(Stage stage){
         TextArea editor = new TextArea();
         TextArea output = new TextArea();
+
         output.setEditable(false);
         editor.getStyleClass().add("editor-canva");
 
@@ -64,7 +65,9 @@ public class ZumbraIDE extends Application{
         layout_btn_msg.setPadding(new Insets(10));
 
         VBox layout_infos_output = new VBox(layout_btn_msg, output);
-        HBox layout = new HBox(editor, layout_infos_output);
+        HBox layout = new HBox(editor);
+        HBox.setMargin(layout_infos_output, new Insets(0,0,0,20));
+        layout.getChildren().add(layout_infos_output);
 
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(10));

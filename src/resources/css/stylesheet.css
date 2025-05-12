@@ -8,3 +8,7 @@
     -fx-border-style: solid;
     -fx-cursor: hand;
 }
+
+.output-canva{
+    -fx-margin-left: 10px;
+}
