@@ -1,3 +1,5 @@
+package main.java.com.joselucasapp.okavangoide;
+
 import static javafx.application.Application.launch;
 
 public class Main {

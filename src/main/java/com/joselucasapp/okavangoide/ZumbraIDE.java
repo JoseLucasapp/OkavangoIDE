@@ -1,3 +1,5 @@
+package main.java.com.joselucasapp.okavangoide;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -70,7 +72,7 @@ public class ZumbraIDE extends Application{
         layout.setMinWidth(800);
         layout.getStyleClass().add("layout");
         Scene scene = new Scene(layout, 1000, 600);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/stylesheet.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/css/stylesheet.css")).toExternalForm());
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
 
