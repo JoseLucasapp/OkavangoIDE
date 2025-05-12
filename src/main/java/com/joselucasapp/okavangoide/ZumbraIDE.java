@@ -19,12 +19,15 @@ public class ZumbraIDE extends Application{
     @Override
     public void start(Stage stage){
         TextArea editor = new TextArea();
-        TextArea output = new TextArea();
-
-        output.setEditable(false);
-        editor.getStyleClass().add("editor-canva");
-
+        editor.setFont(Font.font("Fira code", 16));
+        editor.setMinWidth(800);
+        editor.getStyleClass().add("text-area");
         editor.setBackground(new Background(new BackgroundFill(Color.rgb(68,71,90), null, null)));
+
+        TextArea output = new TextArea();
+        output.setFont(Font.font("Fira code", 16));
+        output.setEditable(false);
+        output.getStyleClass().add("text-area");
 
         Button runButton = new Button("Run");
         runButton.getStyleClass().add("run-button");
@@ -56,6 +59,8 @@ public class ZumbraIDE extends Application{
 
         Text outputText = new Text("Output: ");
         outputText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        outputText.getStyleClass().add("output-text");
+        outputText.setFill(Color.rgb(248,248,242));
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -76,6 +81,7 @@ public class ZumbraIDE extends Application{
         layout.getStyleClass().add("layout");
         Scene scene = new Scene(layout, 1000, 600);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/css/stylesheet.css")).toExternalForm());
+
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
 

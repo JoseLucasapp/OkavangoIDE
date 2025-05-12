@@ -1,3 +1,7 @@
+.layout{
+    -fx-background-color: #282a36;
+}
+
 .run-button {
     -fx-font-size: 16px;
     -fx-padding: 10;
@@ -9,6 +13,9 @@
     -fx-cursor: hand;
 }
 
-.output-canva{
-    -fx-margin-left: 10px;
+.text-area {
+    -fx-control-inner-background: #44475a;
+    -fx-background-color: #282a36;
+    -fx-text-fill: #f8f8f2;
+    -fx-outline: none;
 }
