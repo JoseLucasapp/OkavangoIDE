@@ -18,6 +18,8 @@ import java.util.Objects;
 public class ZumbraIDE extends Application{
     @Override
     public void start(Stage stage){
+        SelectFile selectFile = new SelectFile();
+        
         TextArea editor = new TextArea();
         editor.setFont(Font.font("Fira code", 16));
         editor.setMinWidth(800);
@@ -86,6 +88,8 @@ public class ZumbraIDE extends Application{
         stage.setScene(scene);
 
         stage.show();
+
+        selectFile.start(stage);
     }
 
 }
