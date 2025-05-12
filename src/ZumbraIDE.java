@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Objects;
 
 public class ZumbraIDE extends Application{
     @Override
@@ -69,7 +70,7 @@ public class ZumbraIDE extends Application{
         layout.setMinWidth(800);
         layout.getStyleClass().add("layout");
         Scene scene = new Scene(layout, 1000, 600);
-        scene.getStylesheets().add(getClass().getResource("/css/stylesheet.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/stylesheet.css")).toExternalForm());
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
 
