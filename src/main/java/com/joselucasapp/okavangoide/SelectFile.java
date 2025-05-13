@@ -1,5 +1,6 @@
 package main.java.com.joselucasapp.okavangoide;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -7,9 +8,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.nio.file.Files;
 
 public class SelectFile {
-    public void start(Stage stage, VBox lateralMenu) {
+    public void start(Stage stage, VBox lateralMenu, TextArea editor) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select a Zumbra folder");
 
@@ -34,7 +36,12 @@ public class SelectFile {
             treeView.setOnMouseClicked(event ->{
                 TreeItem<File> selected = treeView.getSelectionModel().getSelectedItem();
                 if (selected != null && selected.getValue().isFile()){
-                    System.out.println("Clicou em:"+ selected.getValue().getAbsolutePath());
+                    try{
+                        String content = Files.readString(selected.getValue().toPath());
+                        editor.setText(content);
+                    }catch (Exception ex){
+                        System.out.println("Failed to load:"+ ex.getMessage());
+                    }
                 }
             });
 

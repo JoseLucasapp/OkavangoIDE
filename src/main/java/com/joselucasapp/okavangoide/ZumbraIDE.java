@@ -73,7 +73,7 @@ public class ZumbraIDE extends Application{
         lateral_menu.setMinWidth(0.2 * screenX);
         lateral_menu.setMinHeight(screenY - 100);
 
-        openFile.setOnAction(e-> selectFile.start(stage, lateral_menu));
+        openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, editor));
         HBox body = new HBox(lateral_menu, layout);
 
         VBox okavangoIDE = new VBox(top_bar_menu, body);
