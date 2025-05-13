@@ -36,7 +36,7 @@ public class ZumbraIDE extends Application{
 
         Button openFile = new Button("File");
         openFile.getStyleClass().add("file-btn");
-        openFile.setOnAction(e-> selectFile.start(stage));
+
 
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox.setMargin(openFile, new Insets(0,0,0,20));
@@ -72,8 +72,9 @@ public class ZumbraIDE extends Application{
         lateral_menu.getStyleClass().add("lateral-menu");
         lateral_menu.setMinWidth(0.2 * screenX);
         lateral_menu.setMinHeight(screenY - 100);
-        HBox body = new HBox(lateral_menu, layout);
 
+        openFile.setOnAction(e-> selectFile.start(stage, lateral_menu));
+        HBox body = new HBox(lateral_menu, layout);
 
         VBox okavangoIDE = new VBox(top_bar_menu, body);
         okavangoIDE.setMinWidth(screenX);
