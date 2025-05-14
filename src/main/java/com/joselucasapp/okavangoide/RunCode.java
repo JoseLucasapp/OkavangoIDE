@@ -1,11 +1,12 @@
-package main.java.com.joselucasapp.okavangoide;
+package com.joselucasapp.okavangoide;
 
 import javafx.scene.control.TextArea;
+import org.fxmisc.richtext.CodeArea;
 
 import java.io.*;
 
 public class RunCode {
-    public void start(TextArea editor, TextArea output){
+    public void start(CodeArea editor, TextArea output){
         try{
             File temp = File.createTempFile("code", ".zum");
             try(FileWriter fw = new FileWriter(temp)){

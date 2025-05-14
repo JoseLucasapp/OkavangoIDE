@@ -1,4 +1,4 @@
-package main.java.com.joselucasapp.okavangoide.helpers;
+package com.joselucasapp.okavangoide.helpers;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;

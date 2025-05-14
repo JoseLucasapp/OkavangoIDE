@@ -1,4 +1,4 @@
-package main.java.com.joselucasapp.okavangoide;
+package com.joselucasapp.okavangoide;
 
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -6,6 +6,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.fxmisc.richtext.CodeArea;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +15,7 @@ import java.nio.file.Files;
 public class SelectFile {
     private TreeView<File> treeView = new TreeView<>();
 
-    public void start(Stage stage, VBox lateralMenu, TextArea editor) {
+    public void start(Stage stage, VBox lateralMenu, CodeArea editor) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select a Zumbra folder");
 
@@ -71,7 +73,7 @@ public class SelectFile {
                 if (selected != null && selected.getValue().isFile()){
                     try{
                         String content = Files.readString(selected.getValue().toPath());
-                        editor.setText(content);
+                        editor.replaceText(content);
                     }catch (Exception ex){
                         System.out.println("Failed to load:"+ ex.getMessage());
                     }
@@ -98,7 +100,7 @@ public class SelectFile {
         return node;
     }
 
-    public void saveFile(KeyEvent event, TextArea editor){
+    public void saveFile(KeyEvent event, CodeArea editor){
         if(event.isControlDown() && event.getCode() == KeyCode.S){
             TreeItem<File> selectedItem = this.treeView.getSelectionModel().getSelectedItem();
             if(selectedItem != null && selectedItem.getValue().isFile()){

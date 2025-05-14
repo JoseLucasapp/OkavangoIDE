@@ -1,4 +1,4 @@
-package main.java.com.joselucasapp.okavangoide;
+package com.joselucasapp.okavangoide;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;

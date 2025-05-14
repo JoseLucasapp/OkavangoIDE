@@ -1,4 +1,4 @@
-package main.java.com.joselucasapp.okavangoide;
+package com.joselucasapp.okavangoide;
 
 import static javafx.application.Application.launch;
 

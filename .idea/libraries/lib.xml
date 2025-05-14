@@ -2,6 +2,7 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$USER_HOME$/Downloads/javafx-sdk-21.0.7/lib" />
+      <root url="jar://$USER_HOME$/Downloads/richtextfx-0.11.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
