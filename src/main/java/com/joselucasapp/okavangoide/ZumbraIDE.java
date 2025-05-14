@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.java.com.joselucasapp.okavangoide.helpers.ScreenData;
@@ -88,6 +89,7 @@ public class ZumbraIDE extends Application{
                 "-fx-background-color: #282a36;"
         );
         Scene scene = new Scene(okavangoIDE, screenX, screenY);
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, editor));
 
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);

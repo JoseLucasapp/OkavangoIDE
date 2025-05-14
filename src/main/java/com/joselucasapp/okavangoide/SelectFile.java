@@ -1,6 +1,8 @@
 package main.java.com.joselucasapp.okavangoide;
 
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -9,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class SelectFile {
+    private TreeView<File> treeView = new TreeView<>();
+
     public void start(Stage stage, VBox lateralMenu, TextArea editor) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select a Zumbra folder");
@@ -16,9 +20,9 @@ public class SelectFile {
         File rootFolder = directoryChooser.showDialog(stage);
         if (rootFolder != null && rootFolder.isDirectory()) {
             TreeItem<File> rootItem = createNode(rootFolder);
-            TreeView<File> treeView = new TreeView<>(rootItem);
+            this.treeView = new TreeView<>(rootItem);
 
-            treeView.setCellFactory(tv -> new TreeCell<>(){
+            this.treeView.setCellFactory(tv -> new TreeCell<>(){
                 @Override
                 protected void updateItem(File file, boolean empty){
                     super.updateItem(file, empty);
@@ -63,7 +67,7 @@ public class SelectFile {
             });
 
             treeView.setOnMouseClicked(event ->{
-                TreeItem<File> selected = treeView.getSelectionModel().getSelectedItem();
+                TreeItem<File> selected = this.treeView.getSelectionModel().getSelectedItem();
                 if (selected != null && selected.getValue().isFile()){
                     try{
                         String content = Files.readString(selected.getValue().toPath());
@@ -92,6 +96,20 @@ public class SelectFile {
         }
 
         return node;
+    }
+
+    public void saveFile(KeyEvent event, TextArea editor){
+        if(event.isControlDown() && event.getCode() == KeyCode.S){
+            TreeItem<File> selectedItem = this.treeView.getSelectionModel().getSelectedItem();
+            if(selectedItem != null && selectedItem.getValue().isFile()){
+                try{
+                    Files.writeString(selectedItem.getValue().toPath(), editor.getText());
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
+            }
+            event.consume();
+        }
     }
 }
 
