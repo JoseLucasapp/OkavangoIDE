@@ -1,0 +1,18 @@
+.code-area {
+    -fx-background-color: #44475a;
+    -fx-font-family: "Fira Code";
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+}
+
+.default-text {
+    -fx-fill: #f8f8f2;
+}
+
+.keyword-system {
+    -fx-fill: #ff5555;
+}
+
+.keyword-fct{
+    -fx-fill: #8be9fd;
+}

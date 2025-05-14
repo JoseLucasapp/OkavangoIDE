@@ -1,4 +1,4 @@
-package main.java.com.joselucasapp.okavangoide;
+package com.joselucasapp.okavangoide;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -8,7 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import main.java.com.joselucasapp.okavangoide.helpers.ScreenData;
+import com.joselucasapp.okavangoide.helpers.ScreenData;
+import org.fxmisc.richtext.CodeArea;
 
 public class ZumbraIDE extends Application{
     @Override
@@ -17,11 +18,12 @@ public class ZumbraIDE extends Application{
         RunCode runCode = new RunCode();
         Region spacer = new Region();
         TextField textField = new TextField();
+        Editor editorField = new Editor();
         ScreenData screenData = new ScreenData();
         double screenX = screenData.getData()[0];
         double screenY = screenData.getData()[1];
 
-        TextArea editor = textField.start(0.63 * screenY,16, "Fira code", true);
+        CodeArea editor = editorField.start();
         TextArea output = textField.start(0.2 * screenY, 16, "Fira code", false);
 
         Button runButton = new Button("Run");
@@ -65,7 +67,10 @@ public class ZumbraIDE extends Application{
 
         VBox layout_infos_output = new VBox(layout_btn_msg, output);
 
-        VBox layout = new VBox(editor);
+        VBox editor_box = new VBox(editor);
+        editor_box.setMinHeight(0.63 * screenY);
+        VBox.setVgrow(editor, Priority.ALWAYS);
+        VBox layout = new VBox(editor_box);
         VBox.setVgrow(layout, Priority.ALWAYS);
         layout.getChildren().add(layout_infos_output);
         layout.setPadding(new Insets(10));
@@ -90,6 +95,7 @@ public class ZumbraIDE extends Application{
         );
         Scene scene = new Scene(okavangoIDE, screenX, screenY);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, editor));
+
 
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
