@@ -1,13 +1,11 @@
 package main.java.com.joselucasapp.okavangoide;
 
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 
 public class SelectFile {
@@ -27,8 +25,39 @@ public class SelectFile {
 
                     if(empty || file == null){
                         setText(null);
+                        setContextMenu(null);
                     }else{
                         setText(file.getName());
+
+                        MenuItem newFileItem = new MenuItem("New File");
+
+                        newFileItem.setOnAction(e->{
+                            TextInputDialog dialog = new TextInputDialog("newFile.zum");
+                            dialog.setTitle("Create new File");
+                            dialog.setHeaderText("Create new file on: "+ file.getName());
+                            dialog.setContentText("File name: ");
+
+                            dialog.showAndWait().ifPresent(fileName ->{
+                                File newFile = new File(file, fileName);
+                                try{
+                                    if(newFile.createNewFile()){
+                                        TreeItem<File> newItem = createNode(newFile);
+                                        getTreeItem().getChildren().add(newItem);
+                                        getTreeItem().setExpanded(true);
+                                    }
+                                }catch (IOException ex){
+                                    ex.printStackTrace();
+                                }
+                            });
+                        });
+
+                        ContextMenu contextMenu = new ContextMenu();
+
+                        if(file.isDirectory()){
+                            contextMenu.getItems().addAll(newFileItem);
+                        }
+
+                        setContextMenu(contextMenu);
                     }
                 }
             });
