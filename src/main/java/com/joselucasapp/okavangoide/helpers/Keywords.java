@@ -4,10 +4,12 @@ import java.util.Map;
 
 public class Keywords {
     public static final Map<String, String> KEYWORDS = Map.of(
-            "var", "keyword-system",
-            "fct", "keyword-fct",
+            "var", "keyword-var",
+            "fct", "keyword-var",
             "if", "keyword-system",
             "else", "keyword-system",
-            "while", "keyword-system"
+            "while", "keyword-system",
+            "show", "keyword-fct",
+            "input", "keyword-fct"
     );
 }

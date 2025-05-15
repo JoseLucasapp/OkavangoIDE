@@ -74,7 +74,7 @@ public class ZumbraIDE extends Application{
                 "-fx-background-color: #130B28;"
         );
 
-        VBox root = new VBox(topBar.customTopBar(stage, screenX, screenY, openFile), okavangoIDE);
+        VBox root = new VBox(topBar.customTopBar(stage, screenX, screenY, openFile, runButton), okavangoIDE);
         Scene scene = new Scene(root, screenX, screenY);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, tabEditors));
 

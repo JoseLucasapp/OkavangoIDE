@@ -10,19 +10,32 @@
 }
 
 .keyword-system {
-    -fx-fill: #ff5555;
+    -fx-fill: #F0A637;
+}
+
+.keyword-var{
+    -fx-fill: #14E5D4;
 }
 
 .keyword-fct{
-    -fx-fill: #8be9fd;
+    -fx-fill: #1974F2;
 }
 
 .keyword-string{
-    -fx-fill: #f1fa8c;
+    -fx-fill: #42DD76;
 }
 
 .keyword-number{
-    -fx-fill: #50fa7b;
+    -fx-fill: #FF6333;
+}
+
+.keyword-comment {
+    -fx-fill: #6160A4;
+    -fx-font-style: italic;
+}
+
+.keyword-identifier {
+    -fx-fill: #FF478D;
 }
 
 .tab-pane {
