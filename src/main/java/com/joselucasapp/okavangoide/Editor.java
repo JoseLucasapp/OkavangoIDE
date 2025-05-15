@@ -13,14 +13,10 @@ import java.util.function.IntFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.joselucasapp.okavangoide.helpers.Keywords.KEYWORDS;
+
 public class Editor {
 
-    private static final Map<String, String> KEYWORDS = Map.of(
-            "var", "keyword-system",
-            "fct", "keyword-fct",
-            "if", "keyword-system",
-            "else", "keyword-system"
-    );
     private static final Pattern PATTERN = Pattern.compile("\\b(" + String.join("|", KEYWORDS.keySet()) + ")\\b");
 
     public CodeArea start() {
