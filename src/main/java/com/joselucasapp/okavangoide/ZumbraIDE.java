@@ -1,5 +1,8 @@
 package com.joselucasapp.okavangoide;
 
+import com.joselucasapp.okavangoide.helpers.Buttons;
+import com.joselucasapp.okavangoide.helpers.Content;
+import com.joselucasapp.okavangoide.helpers.TextField;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,9 +22,12 @@ public class ZumbraIDE extends Application{
         SelectFile selectFile = new SelectFile();
         RunCode runCode = new RunCode();
         Region spacer = new Region();
-        TextField textField = new TextField();
+        com.joselucasapp.okavangoide.helpers.TextField textField = new TextField();
         Editor editorField = new Editor();
         ScreenData screenData = new ScreenData();
+        Buttons buttons = new Buttons();
+        Content content = new Content();
+
         double screenX = screenData.getData()[0];
         double screenY = screenData.getData()[1];
 
@@ -31,28 +37,15 @@ public class ZumbraIDE extends Application{
 
         tabEditors.getTabs().add(createEditorTab(editorField));
 
-        TextArea output = textField.start(0.2 * screenY, 16, "Fira code", false);
+        TextArea output = textField.start(0.2 * screenY);
 
-        Button runButton = getRunButton(tabEditors, runCode, output);
-
-        Button openFile = new Button("File");
-        openFile.setStyle(
-            "-fx-font-size: 16px;"+
-            "-fx-background-color: #282a36;"+
-            "-fx-text-fill: #f8f8f2;"+
-            "-fx-cursor: hand;"
-        );
-
+        Button runButton = buttons.getRunButton(tabEditors, runCode, output);
+        Button openFile = buttons.getOpenFileButton();
 
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox.setMargin(openFile, new Insets(0,0,0,20));
 
-        HBox top_bar_menu = new HBox();
-        top_bar_menu.getChildren().add(openFile);
-        top_bar_menu.setPadding(new Insets(10));
-        top_bar_menu.setAlignment(Pos.CENTER);
-        top_bar_menu.setMinWidth(screenX);
-        top_bar_menu.setMinHeight(0.05 * screenY);
+        HBox top_bar_menu = content.getTopBar(openFile, screenX, screenY);
 
         HBox layout_btn_msg = new HBox(runButton);
 
@@ -64,30 +57,10 @@ public class ZumbraIDE extends Application{
         VBox editor_box = new VBox(tabEditors);
         editor_box.setMinHeight(0.63 * screenY);
 
-
         VBox.setVgrow(tabEditors, Priority.ALWAYS);
-        VBox layout = new VBox(editor_box);
-        VBox.setVgrow(layout, Priority.ALWAYS);
-        layout.getChildren().add(layout_infos_output);
-        layout.setPadding(new Insets(10));
-        layout.setMinWidth(0.8 * screenX);
-        layout.setMinHeight(0.95 * screenY);
-        layout.setStyle(
-            "-fx-background-color: #282a36;"
-        );
+        VBox layout = content.getLayout(editor_box, layout_infos_output, screenX, screenY);
 
-
-        StackPane lateral_menu = new StackPane();
-        VBox.setVgrow(lateral_menu, Priority.ALWAYS);
-        lateral_menu.setStyle("""
-            -fx-background-color: #282a36;
-            -fx-border-color: transparent;
-            -fx-padding: 0;
-        """);
-        lateral_menu.setMinHeight(0);
-        lateral_menu.setMaxHeight(Double.MAX_VALUE);
-        lateral_menu.getStyleClass().add("lateral-menu");
-        lateral_menu.setMinWidth(0.2 * screenX);
+        StackPane lateral_menu = content.getLateralMenu(screenX);
 
         openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, tabEditors, editorField));
         HBox body = new HBox(lateral_menu, layout);
@@ -95,40 +68,14 @@ public class ZumbraIDE extends Application{
         VBox okavangoIDE = new VBox(top_bar_menu, body);
         okavangoIDE.setMinWidth(screenX);
         okavangoIDE.setStyle(
-                "-fx-background-color: #282a36;"
+                "-fx-background-color: #130B28;"
         );
         Scene scene = new Scene(okavangoIDE, screenX, screenY);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, tabEditors));
 
-
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
         stage.show();
-    }
-
-    private static Button getRunButton(TabPane tabEditors, RunCode runCode, TextArea output) {
-        Button runButton = new Button("Run");
-        runButton.setStyle(
-            "-fx-font-size: 16px;"+
-            "-fx-padding: 10;"+
-            "-fx-background-color: #282a36;"+
-            "-fx-text-fill: #f8f8f2;"+
-            "-fx-border-color: #44475a;"+
-            "-fx-border-width: 1px;"+
-            "-fx-border-style: solid;"+
-            "-fx-cursor: hand;"
-        );
-        runButton.setMinWidth(100);
-
-        runButton.setOnAction(e -> {
-            Tab selectedTab = tabEditors.getSelectionModel().getSelectedItem();
-            if(selectedTab != null){
-                CodeArea editor = (CodeArea) selectedTab.getUserData();
-                runCode.start(editor, output);
-            }
-
-        });
-        return runButton;
     }
 
     private Tab createEditorTab(Editor editorField){

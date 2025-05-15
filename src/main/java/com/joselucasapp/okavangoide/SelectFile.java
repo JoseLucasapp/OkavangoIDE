@@ -28,8 +28,8 @@ public class SelectFile {
             this.treeView = new TreeView<>(rootItem);
             this.treeView.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
             this.treeView.setStyle(
-                    "-fx-background-color: #282a36;" +
-                            "-fx-control-inner-background: #282a36;" +
+                    "-fx-background-color: #130B28;" +
+                            "-fx-control-inner-background: #130B28;" +
                             "-fx-font-family: 'Fira Code';" +
                             "-fx-text-fill: #f8f8f2;"
             );
@@ -50,7 +50,7 @@ public class SelectFile {
                         String icon = file.isDirectory() ? "📁 " : "📄 ";
                         setText(icon + file.getName());
 
-                        setStyle("-fx-background-color: #282a36; -fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-font-size: 14px;");
+                        setStyle("-fx-background-color: #130B28; -fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-font-size: 14px;");
 
                         MenuItem newFileItem = getMenuItem(file);
 
@@ -118,7 +118,7 @@ public class SelectFile {
             lateralMenu.getChildren().clear();
             lateralMenu.getChildren().add(treeView);
 
-            lateralMenu.setStyle("-fx-background-color: #282a36;");
+            lateralMenu.setStyle("-fx-background-color: #130B28;");
 
         }
     }

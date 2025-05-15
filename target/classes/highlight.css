@@ -35,21 +35,34 @@
 }
 
 .tab-header-background {
-    -fx-background-color: #44475a;
+    -fx-background-color: #130B28;
 }
 
 .tab {
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-padding: 8 12 8 12;
-    -fx-background-color: #282a36;
+    -fx-background-color: #130B28;
     -fx-text-base-color: #f8f8f2;
     -fx-border-color: transparent transparent #44475a transparent;
     -fx-border-width: 0 0 2 0;
 }
 
+
+.tab:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.tab-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+
 .tab:selected {
-    -fx-background-color: #44475a;
+    -fx-background-color: #171131;
     -fx-border-color: #ff79c6;
     -fx-border-width: 0 0 3px 0;
 }
@@ -59,6 +72,11 @@
     -fx-font-family: "Fira Code";
 }
 
+.tab-label:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
 
 .tree-view,
 .tree-view .virtual-flow,
@@ -66,8 +84,8 @@
 .tree-view .sheet,
 .tree-view .tree-cell,
 .tree-view .cell {
-    -fx-background-color: #282a36;
-    -fx-control-inner-background: #282a36;
+    -fx-background-color: #130B28;
+    -fx-control-inner-background: #130B28;
     -fx-text-fill: #f8f8f2;
     -fx-font-family: "Fira Code";
     -fx-font-size: 14px;
@@ -81,7 +99,7 @@
 
 .tree-cell:filled:selected,
 .tree-cell:selected{
-    -fx-background-color: #44475a;
+    -fx-background-color: #211B3F;
     -fx-text-fill: #ff79c6;
 }
 
