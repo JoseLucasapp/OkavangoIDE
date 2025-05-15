@@ -36,8 +36,8 @@ public class Buttons {
     public Button getOpenFileButton(){
         Button openFile = new Button("File");
         openFile.setStyle(
-                "-fx-font-size: 16px;"+
-                        "-fx-background-color: #130B28;"+
+                "-fx-font-size: 14px;"+
+                        "-fx-background-color: #171131;"+
                         "-fx-text-fill: #f8f8f2;"+
                         "-fx-cursor: hand;"
         );

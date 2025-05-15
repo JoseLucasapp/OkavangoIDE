@@ -40,7 +40,7 @@ public class Editor {
 
         IntFunction<Node> numberFactory = line -> {
             Label label = new Label(String.valueOf(line + 1));
-            label.setStyle("-fx-text-fill: #6272a4; -fx-font-family: Fira code; -fx-font-size: 16px;");
+            label.setStyle("-fx-text-fill: #171131; -fx-font-family: Fira code; -fx-font-size: 16px;");
             label.setMinWidth(35);
             label.setAlignment(Pos.CENTER_RIGHT);
             label.setPadding(new Insets(0, 10, 0, 0));

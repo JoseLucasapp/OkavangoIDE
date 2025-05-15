@@ -103,6 +103,7 @@ public class SelectFile {
                         tab.setUserData(newEditor);
 
                         tabPane.getTabs().add(tab);
+
                         tabPane.getSelectionModel().select(tab);
                     }catch (Exception ex){
                         System.out.println("Failed to load:"+ ex.getMessage());

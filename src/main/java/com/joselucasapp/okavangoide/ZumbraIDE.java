@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ public class ZumbraIDE extends Application{
         ScreenData screenData = new ScreenData();
         Buttons buttons = new Buttons();
         Content content = new Content();
+        CustomTopBar topBar = new CustomTopBar();
 
         double screenX = screenData.getData()[0];
         double screenY = screenData.getData()[1];
@@ -45,8 +47,6 @@ public class ZumbraIDE extends Application{
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox.setMargin(openFile, new Insets(0,0,0,20));
 
-        HBox top_bar_menu = content.getTopBar(openFile, screenX, screenY);
-
         HBox layout_btn_msg = new HBox(runButton);
 
         layout_btn_msg.setAlignment(Pos.CENTER_LEFT);
@@ -56,6 +56,7 @@ public class ZumbraIDE extends Application{
 
         VBox editor_box = new VBox(tabEditors);
         editor_box.setMinHeight(0.63 * screenY);
+        editor_box.setStyle("-fx-text-fill: #171131; -fx-font-family: Fira code; -fx-font-size: 16px; -fx-background-color: #171131;");
 
         VBox.setVgrow(tabEditors, Priority.ALWAYS);
         VBox layout = content.getLayout(editor_box, layout_infos_output, screenX, screenY);
@@ -64,16 +65,22 @@ public class ZumbraIDE extends Application{
 
         openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, tabEditors, editorField));
         HBox body = new HBox(lateral_menu, layout);
+        HBox.setHgrow(body, Priority.ALWAYS);
+        body.setPrefHeight(screenY);
 
-        VBox okavangoIDE = new VBox(top_bar_menu, body);
+        VBox okavangoIDE = new VBox(body);
         okavangoIDE.setMinWidth(screenX);
         okavangoIDE.setStyle(
                 "-fx-background-color: #130B28;"
         );
-        Scene scene = new Scene(okavangoIDE, screenX, screenY);
+
+        VBox root = new VBox(topBar.customTopBar(stage, screenX, screenY, openFile), okavangoIDE);
+        Scene scene = new Scene(root, screenX, screenY);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, tabEditors));
 
         stage.setTitle("OkavangoIDE");
+
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png"))));
         stage.setScene(scene);
         stage.show();
     }
