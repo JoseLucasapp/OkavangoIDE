@@ -29,31 +29,11 @@ public class ZumbraIDE extends Application{
         tabEditors.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         tabEditors.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
 
-        tabEditors.getTabs().add(createEditorTab("Welcome", "Welcome to OkavangoIDE !!!", editorField));
+        tabEditors.getTabs().add(createEditorTab(editorField));
 
         TextArea output = textField.start(0.2 * screenY, 16, "Fira code", false);
 
-        Button runButton = new Button("Run");
-        runButton.setStyle(
-            "-fx-font-size: 16px;"+
-            "-fx-padding: 10;"+
-            "-fx-background-color: #282a36;"+
-            "-fx-text-fill: #f8f8f2;"+
-            "-fx-border-color: #44475a;"+
-            "-fx-border-width: 1px;"+
-            "-fx-border-style: solid;"+
-            "-fx-cursor: hand;"
-        );
-        runButton.setMinWidth(100);
-
-        runButton.setOnAction(e -> {
-            Tab selectedTab = tabEditors.getSelectionModel().getSelectedItem();
-            if(selectedTab != null){
-                CodeArea editor = (CodeArea) selectedTab.getUserData();
-                runCode.start(editor, output);
-            }
-
-        });
+        Button runButton = getRunButton(tabEditors, runCode, output);
 
         Button openFile = new Button("File");
         openFile.setStyle(
@@ -126,12 +106,37 @@ public class ZumbraIDE extends Application{
         stage.show();
     }
 
-    private Tab createEditorTab(String fileName, String content, Editor editorField){
+    private static Button getRunButton(TabPane tabEditors, RunCode runCode, TextArea output) {
+        Button runButton = new Button("Run");
+        runButton.setStyle(
+            "-fx-font-size: 16px;"+
+            "-fx-padding: 10;"+
+            "-fx-background-color: #282a36;"+
+            "-fx-text-fill: #f8f8f2;"+
+            "-fx-border-color: #44475a;"+
+            "-fx-border-width: 1px;"+
+            "-fx-border-style: solid;"+
+            "-fx-cursor: hand;"
+        );
+        runButton.setMinWidth(100);
+
+        runButton.setOnAction(e -> {
+            Tab selectedTab = tabEditors.getSelectionModel().getSelectedItem();
+            if(selectedTab != null){
+                CodeArea editor = (CodeArea) selectedTab.getUserData();
+                runCode.start(editor, output);
+            }
+
+        });
+        return runButton;
+    }
+
+    private Tab createEditorTab(Editor editorField){
         CodeArea editor = editorField.start();
 
-        editor.replaceText(content);
+        editor.replaceText("Welcome to OkavangoIDE !!!");
 
-        Tab tab = new Tab(fileName);
+        Tab tab = new Tab("Welcome");
         tab.setContent(editor);
         tab.setUserData(editor);
         return tab;

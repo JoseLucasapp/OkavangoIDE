@@ -5,9 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
@@ -54,27 +52,7 @@ public class SelectFile {
 
                         setStyle("-fx-background-color: #282a36; -fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-font-size: 14px;");
 
-                        MenuItem newFileItem = new MenuItem("New File");
-
-                        newFileItem.setOnAction(e->{
-                            TextInputDialog dialog = new TextInputDialog("newFile.zum");
-                            dialog.setTitle("Create new File");
-                            dialog.setHeaderText("Create new file on: "+ file.getName());
-                            dialog.setContentText("File name: ");
-
-                            dialog.showAndWait().ifPresent(fileName ->{
-                                File newFile = new File(file, fileName);
-                                try{
-                                    if(newFile.createNewFile()){
-                                        TreeItem<File> newItem = createNode(newFile);
-                                        getTreeItem().getChildren().add(newItem);
-                                        getTreeItem().setExpanded(true);
-                                    }
-                                }catch (IOException ex){
-                                    ex.printStackTrace();
-                                }
-                            });
-                        });
+                        MenuItem newFileItem = getMenuItem(file);
 
                         ContextMenu contextMenu = new ContextMenu();
 
@@ -84,6 +62,31 @@ public class SelectFile {
 
                         setContextMenu(contextMenu);
                     }
+                }
+
+                private MenuItem getMenuItem(File file) {
+                    MenuItem newFileItem = new MenuItem("New File");
+
+                    newFileItem.setOnAction(e->{
+                        TextInputDialog dialog = new TextInputDialog("newFile.zum");
+                        dialog.setTitle("Create new File");
+                        dialog.setHeaderText("Create new file on: "+ file.getName());
+                        dialog.setContentText("File name: ");
+
+                        dialog.showAndWait().ifPresent(fileName ->{
+                            File newFile = new File(file, fileName);
+                            try{
+                                if(newFile.createNewFile()){
+                                    TreeItem<File> newItem = createNode(newFile);
+                                    getTreeItem().getChildren().add(newItem);
+                                    getTreeItem().setExpanded(true);
+                                }
+                            }catch (IOException ex){
+                                ex.printStackTrace();
+                            }
+                        });
+                    });
+                    return newFileItem;
                 }
             });
 
@@ -112,8 +115,8 @@ public class SelectFile {
             StackPane.setAlignment(treeView, Pos.TOP_LEFT);
             StackPane.setMargin(treeView, new Insets(0));
 
-            ((StackPane) lateralMenu).getChildren().clear();
-            ((StackPane) lateralMenu).getChildren().add(treeView);
+            lateralMenu.getChildren().clear();
+            lateralMenu.getChildren().add(treeView);
 
             lateralMenu.setStyle("-fx-background-color: #282a36;");
 

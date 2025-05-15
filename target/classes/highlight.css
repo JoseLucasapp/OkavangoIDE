@@ -77,14 +77,12 @@
     -fx-text-fill: #ff79c6;
 }
 
-/* Scrollbar escura */
 .tree-view .scroll-bar,
 .tree-view .scroll-bar .track,
 .tree-view .scroll-bar .thumb {
     -fx-background-color: #282a36;
 }
 
-/* Remove borda branca ao redor do TreeView */
 .tree-view .viewport {
     -fx-background-color: #282a36;
 }
