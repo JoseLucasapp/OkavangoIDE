@@ -8,7 +8,6 @@ public class Keywords {
             "fct", "keyword-fct",
             "if", "keyword-system",
             "else", "keyword-system",
-            "while", "keyword-system",
-            " << ", "keyword-system"
+            "while", "keyword-system"
     );
 }

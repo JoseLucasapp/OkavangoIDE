@@ -17,7 +17,17 @@ import static com.joselucasapp.okavangoide.helpers.Keywords.KEYWORDS;
 
 public class Editor {
 
-    private static final Pattern PATTERN = Pattern.compile("\\b(" + String.join("|", KEYWORDS.keySet()) + ")\\b");
+    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"|'([^'\\\\]|\\\\.)*'";
+    private static final String KEYWORD_PATTERN ="\\b(" + String.join("|", KEYWORDS.keySet()) + ")\\b";
+    private static final String ASSIGN_PATTERN = "<<";
+    private static final String NUMBER_PATTERN = "\\b\\d+(\\.\\d+)?\\b";
+
+    private static final Pattern PATTERN = Pattern.compile(
+            "(?<KEYWORD>" + KEYWORD_PATTERN + ")" +
+                    "|(?<STRING>" + STRING_PATTERN +")" +
+                    "|(?<ASSIGN>" + ASSIGN_PATTERN +")" +
+                    "|(?<NUMBER>" + NUMBER_PATTERN +")"
+    );
 
     public CodeArea start() {
         CodeArea editor = new CodeArea();
@@ -53,9 +63,19 @@ public class Editor {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
         while (matcher.find()) {
-            String word = matcher.group();
+            String styleClass = "default-text";
+            if(matcher.group("KEYWORD") != null){
+                styleClass = KEYWORDS.get(matcher.group("KEYWORD"));
+            }else if (matcher.group("STRING") != null){
+                styleClass = "keyword-string";
+            }else if(matcher.group("ASSIGN") != null){
+                styleClass = "keyword-system";
+            }else if(matcher.group("NUMBER") != null){
+                styleClass = "keyword-number";
+            }
+
             spansBuilder.add(Collections.singleton("default-text"), matcher.start() - lastEnd);
-            spansBuilder.add(Collections.singleton(KEYWORDS.get(word)), matcher.end() - matcher.start());
+            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
             lastEnd = matcher.end();
         }
 
