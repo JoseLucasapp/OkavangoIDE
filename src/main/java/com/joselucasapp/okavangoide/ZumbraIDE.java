@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import com.joselucasapp.okavangoide.helpers.ScreenData;
 import org.fxmisc.richtext.CodeArea;
 
+import java.util.Objects;
+
 public class ZumbraIDE extends Application{
     @Override
     public void start(Stage stage){
@@ -23,7 +25,12 @@ public class ZumbraIDE extends Application{
         double screenX = screenData.getData()[0];
         double screenY = screenData.getData()[1];
 
-        CodeArea editor = editorField.start();
+        TabPane tabEditors = new TabPane();
+        tabEditors.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
+        tabEditors.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
+
+        tabEditors.getTabs().add(createEditorTab("Welcome", "Welcome to OkavangoIDE !!!", editorField));
+
         TextArea output = textField.start(0.2 * screenY, 16, "Fira code", false);
 
         Button runButton = new Button("Run");
@@ -39,7 +46,14 @@ public class ZumbraIDE extends Application{
         );
         runButton.setMinWidth(100);
 
-        runButton.setOnAction(e -> runCode.start(editor, output));
+        runButton.setOnAction(e -> {
+            Tab selectedTab = tabEditors.getSelectionModel().getSelectedItem();
+            if(selectedTab != null){
+                CodeArea editor = (CodeArea) selectedTab.getUserData();
+                runCode.start(editor, output);
+            }
+
+        });
 
         Button openFile = new Button("File");
         openFile.setStyle(
@@ -67,9 +81,11 @@ public class ZumbraIDE extends Application{
 
         VBox layout_infos_output = new VBox(layout_btn_msg, output);
 
-        VBox editor_box = new VBox(editor);
+        VBox editor_box = new VBox(tabEditors);
         editor_box.setMinHeight(0.63 * screenY);
-        VBox.setVgrow(editor, Priority.ALWAYS);
+
+
+        VBox.setVgrow(tabEditors, Priority.ALWAYS);
         VBox layout = new VBox(editor_box);
         VBox.setVgrow(layout, Priority.ALWAYS);
         layout.getChildren().add(layout_infos_output);
@@ -80,12 +96,20 @@ public class ZumbraIDE extends Application{
             "-fx-background-color: #282a36;"
         );
 
-        VBox lateral_menu = new VBox();
+
+        StackPane lateral_menu = new StackPane();
+        VBox.setVgrow(lateral_menu, Priority.ALWAYS);
+        lateral_menu.setStyle("""
+            -fx-background-color: #282a36;
+            -fx-border-color: transparent;
+            -fx-padding: 0;
+        """);
+        lateral_menu.setMinHeight(0);
+        lateral_menu.setMaxHeight(Double.MAX_VALUE);
         lateral_menu.getStyleClass().add("lateral-menu");
         lateral_menu.setMinWidth(0.2 * screenX);
-        lateral_menu.setMinHeight(screenY - 100);
 
-        openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, editor));
+        openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, tabEditors, editorField));
         HBox body = new HBox(lateral_menu, layout);
 
         VBox okavangoIDE = new VBox(top_bar_menu, body);
@@ -94,12 +118,23 @@ public class ZumbraIDE extends Application{
                 "-fx-background-color: #282a36;"
         );
         Scene scene = new Scene(okavangoIDE, screenX, screenY);
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, editor));
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, tabEditors));
 
 
         stage.setTitle("OkavangoIDE");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private Tab createEditorTab(String fileName, String content, Editor editorField){
+        CodeArea editor = editorField.start();
+
+        editor.replaceText(content);
+
+        Tab tab = new Tab(fileName);
+        tab.setContent(editor);
+        tab.setUserData(editor);
+        return tab;
     }
 
 }

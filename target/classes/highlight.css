@@ -16,3 +16,90 @@
 .keyword-fct{
     -fx-fill: #8be9fd;
 }
+
+.tab-pane {
+    -fx-background-color: #282a36;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 200px;
+    -fx-tab-min-height: 35px;
+    -fx-tab-max-height: 35px;
+    -fx-padding: 0;
+}
+
+.tab-header-background {
+    -fx-background-color: #44475a;
+}
+
+.tab {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 8 12 8 12;
+    -fx-background-color: #282a36;
+    -fx-text-base-color: #f8f8f2;
+    -fx-border-color: transparent transparent #44475a transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+.tab:selected {
+    -fx-background-color: #44475a;
+    -fx-border-color: #ff79c6;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.tab-label {
+    -fx-font-size: 14px;
+    -fx-font-family: "Fira Code";
+}
+
+
+.tree-view,
+.tree-view .virtual-flow,
+.tree-view .clipped-container,
+.tree-view .sheet,
+.tree-view .tree-cell,
+.tree-view .cell {
+    -fx-background-color: #282a36;
+    -fx-control-inner-background: #282a36;
+    -fx-text-fill: #f8f8f2;
+    -fx-font-family: "Fira Code";
+    -fx-font-size: 14px;
+}
+
+.tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f8f8f2;
+    -fx-padding: 6 10 6 10;
+}
+
+.tree-cell:filled:selected,
+.tree-cell:selected{
+    -fx-background-color: #44475a;
+    -fx-text-fill: #ff79c6;
+}
+
+/* Scrollbar escura */
+.tree-view .scroll-bar,
+.tree-view .scroll-bar .track,
+.tree-view .scroll-bar .thumb {
+    -fx-background-color: #282a36;
+}
+
+/* Remove borda branca ao redor do TreeView */
+.tree-view .viewport {
+    -fx-background-color: #282a36;
+}
+
+.tree-view .virtual-flow .viewport {
+    -fx-background-color: #282a36;
+}
+
+.tree-view:focused {
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-effect: null;
+}
+
+.tree-cell:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
