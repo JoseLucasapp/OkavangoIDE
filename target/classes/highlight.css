@@ -90,6 +90,35 @@
     -fx-faint-focus-color: transparent;
 }
 
+.tab-pane .tab-header-area .tab-down-button {
+    -fx-background-color: #171131;
+    -fx-background-radius: 5;
+    -fx-padding: 4 6;
+    -fx-shape: "M 0 0 L 6 0 L 3 4 Z";
+}
+
+.tab-pane .tab-header-area .tab-down-button:hover {
+    -fx-background-color: #44475a;
+}
+
+.context-menu {
+    -fx-background-color: #1e1e2e;
+    -fx-border-color: #44475a;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.menu-item {
+    -fx-text-fill: #f8f8f2;
+    -fx-font-family: "Fira Code";
+    -fx-font-size: 13px;
+}
+
+.menu-item:focused {
+    -fx-background-color: #44475a;
+}
+
+
 
 .tree-view,
 .tree-view .virtual-flow,

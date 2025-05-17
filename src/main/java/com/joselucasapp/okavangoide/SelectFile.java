@@ -52,21 +52,22 @@ public class SelectFile {
 
                         setStyle("-fx-background-color: #130B28; -fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-font-size: 14px;");
 
-                        MenuItem newFileItem = getMenuItem(file);
+                        MenuItem newFileItem = createFileMenuItem(file);
+                        MenuItem newFolderItem = createFolderMenuItem(file);
                         newFileItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
 
                         ContextMenu contextMenu = new ContextMenu();
                         contextMenu.setStyle("-fx-background-color: #1a102d; -fx-border-color: #44475a;");
 
                         if(file.isDirectory()){
-                            contextMenu.getItems().addAll(newFileItem);
+                            contextMenu.getItems().addAll(newFileItem, newFolderItem);
                         }
 
                         setContextMenu(contextMenu);
                     }
                 }
 
-                private MenuItem getMenuItem(File file) {
+                private MenuItem createFileMenuItem(File file) {
                     MenuItem newFileItem = new MenuItem("New File");
 
                     newFileItem.setOnAction(e->{
@@ -89,6 +90,30 @@ public class SelectFile {
                         });
                     });
                     return newFileItem;
+                }
+
+                private MenuItem createFolderMenuItem(File file){
+                    MenuItem newFolderItem = new MenuItem("New Folder");
+
+                    newFolderItem.setOnAction(e->{
+                        TextInputDialog dialog = new TextInputDialog("New folder");
+
+                        dialog.setTitle("Create new folder");
+                        dialog.setHeaderText("Create new folder on: "+ file.getName());
+                        dialog.setContentText("Folder name: ");
+
+                        dialog.showAndWait().ifPresent(folderName->{
+                            File newDir = new File(file, folderName);
+
+                            if(newDir.mkdir()){
+                                TreeItem<File> newItem = createNode(newDir);
+                                getTreeItem().getChildren().add(newItem);
+                                getTreeItem().setExpanded(true);
+                            }
+                        });
+                    });
+
+                    return newFolderItem;
                 }
             });
 
