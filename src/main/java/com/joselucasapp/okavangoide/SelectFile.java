@@ -54,13 +54,15 @@ public class SelectFile {
 
                         MenuItem newFileItem = createFileMenuItem(file);
                         MenuItem newFolderItem = createFolderMenuItem(file);
-                        newFileItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
+                        MenuItem renameItem = renameMenuItem(file);
 
                         ContextMenu contextMenu = new ContextMenu();
                         contextMenu.setStyle("-fx-background-color: #1a102d; -fx-border-color: #44475a;");
 
                         if(file.isDirectory()){
-                            contextMenu.getItems().addAll(newFileItem, newFolderItem);
+                            contextMenu.getItems().addAll(newFileItem, newFolderItem, renameItem);
+                        }else{
+                            contextMenu.getItems().addAll(renameItem);
                         }
 
                         setContextMenu(contextMenu);
@@ -69,6 +71,7 @@ public class SelectFile {
 
                 private MenuItem createFileMenuItem(File file) {
                     MenuItem newFileItem = new MenuItem("New File");
+                    newFileItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
 
                     newFileItem.setOnAction(e->{
                         TextInputDialog dialog = new TextInputDialog("newFile.zum");
@@ -94,6 +97,7 @@ public class SelectFile {
 
                 private MenuItem createFolderMenuItem(File file){
                     MenuItem newFolderItem = new MenuItem("New Folder");
+                    newFolderItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
 
                     newFolderItem.setOnAction(e->{
                         TextInputDialog dialog = new TextInputDialog("New folder");
@@ -114,6 +118,29 @@ public class SelectFile {
                     });
 
                     return newFolderItem;
+                }
+
+                private MenuItem renameMenuItem(File file){
+                    MenuItem renameItem = new MenuItem("Rename");
+                    renameItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
+
+                    renameItem.setOnAction(e->{
+                        TextInputDialog dialog = new TextInputDialog("Rename");
+
+                        dialog.setTitle("Rename");
+                        dialog.setHeaderText("Rename: "+ file.getName());
+                        dialog.setContentText("New title: ");
+
+                        dialog.showAndWait().ifPresent(newName->{
+                            File renamed = new File(file.getParentFile(), newName);
+                            if(file.renameTo(renamed)){
+                                getTreeItem().setValue(renamed);
+                                setText(renamed.getName());
+                            }
+                        });
+                    });
+
+                    return renameItem;
                 }
             });
 
