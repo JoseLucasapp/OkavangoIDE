@@ -53,8 +53,10 @@ public class SelectFile {
                         setStyle("-fx-background-color: #130B28; -fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-font-size: 14px;");
 
                         MenuItem newFileItem = getMenuItem(file);
+                        newFileItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
 
                         ContextMenu contextMenu = new ContextMenu();
+                        contextMenu.setStyle("-fx-background-color: #1a102d; -fx-border-color: #44475a;");
 
                         if(file.isDirectory()){
                             contextMenu.getItems().addAll(newFileItem);
