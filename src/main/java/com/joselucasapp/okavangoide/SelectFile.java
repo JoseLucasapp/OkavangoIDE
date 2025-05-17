@@ -55,14 +55,15 @@ public class SelectFile {
                         MenuItem newFileItem = createFileMenuItem(file);
                         MenuItem newFolderItem = createFolderMenuItem(file);
                         MenuItem renameItem = renameMenuItem(file);
+                        MenuItem deleteItem = deleteItem(file);
 
                         ContextMenu contextMenu = new ContextMenu();
                         contextMenu.setStyle("-fx-background-color: #1a102d; -fx-border-color: #44475a;");
 
                         if(file.isDirectory()){
-                            contextMenu.getItems().addAll(newFileItem, newFolderItem, renameItem);
+                            contextMenu.getItems().addAll(newFileItem, newFolderItem, renameItem, deleteItem);
                         }else{
-                            contextMenu.getItems().addAll(renameItem);
+                            contextMenu.getItems().addAll(renameItem, deleteItem);
                         }
 
                         setContextMenu(contextMenu);
@@ -142,6 +143,28 @@ public class SelectFile {
 
                     return renameItem;
                 }
+
+                private MenuItem deleteItem(File file){
+                    MenuItem deleteItem = new MenuItem("Delete");
+                    deleteItem.setStyle("-fx-text-fill: #f8f8f2; -fx-font-family: 'Fira Code'; -fx-background-color: transparent;");
+
+                    deleteItem.setOnAction(e->{
+                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                        confirm.setTitle("Rename");
+                        confirm.setHeaderText("Rename: "+ file.getName());
+                        confirm.setContentText("New title: ");
+
+                        confirm.showAndWait().ifPresent(response->{
+                            if(response == ButtonType.OK){
+                                deleteRecursively(file);
+                                getTreeItem().getParent().getChildren().remove(getTreeItem());
+                            }
+                        });
+                    });
+                    return  deleteItem;
+                }
+
+
             });
 
             treeView.setOnMouseClicked(event ->{
@@ -210,6 +233,18 @@ public class SelectFile {
             }
             event.consume();
         }
+    }
+
+    private void deleteRecursively(File file){
+        if(file.isDirectory()){
+            File[] contents = file.listFiles();
+            if(contents != null){
+                for (File f : contents){
+                    deleteRecursively(f);
+                }
+            }
+        }
+        file.delete();
     }
 }
 
