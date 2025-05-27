@@ -23,10 +23,13 @@
 <p style="font-size: 16px;">Press <code>Ctrl + S</code> to quickly save your file, or right-click a folder to create a new Zumbra file!</p>
 
 
-<p style="font-size: 18px; font-weight: 500; margin-top: 20px;">🎨 The interface:</p>
+<p style="font-size: 18px; font-weight: 500; margin-top: 20px;">🎨 The current interface:</p>
 <p align="center">
     <img alt="print" src="./src/main/resources/images/print1.png" width="500">
 </p>
+
+<p style="font-size: 18px; font-weight: 500;">🤝 Contributing</p>
+<p style="font-size: 16px;">We welcome contributions! Please read our <a href="./CONTRIBUTING.md">Contributing Guide</a> and <a href="./CODE_OF_CONDUCT.md">Code of Conduct</a> before submitting pull requests.</p>
 
 <p style="font-size: 12px; color: #888888; text-align: center; margin-top: 40px;">
   Built with ❤️ • project in progress 🚧
