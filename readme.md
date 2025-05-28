@@ -1,14 +1,15 @@
 <p align="center">
     <img alt="logo" src="./src/main/resources/images/logo.png" width="150">
 </p>
-<p align="center" style="font-size: 40px; font-weight: 600;">OKavangoIDE</p>
-<p align="center" style="font-size: 20px; font-weight: 400;">The official Zumbra IDE</p>
+
+# OKavangoIDE
+### The official Zumbra IDE
 
 <blockquote style="font-size: 16px; font-style: italic;">
   ⚙️ <em>ZUMBRA is a simple, fun, and expressive programming language made for learning, experimenting, and enjoying the beauty of code. OKavangoIDE or, for close friends, <strong>OKIDE</strong> was created to help you enjoy coding with Zumbra, featuring syntax highlighting, file management, and a smooth development experience.</em>
 </blockquote>
 
-<p style="font-size: 18px; font-weight: 500;">🚀 Features</p>
+## 🚀 Features
 <ul style="font-size: 16px; line-height: 1.6;">
   <li>🎨 Real-time syntax highlighting for Zumbra</li>
   <li>📂 File explorer with in-editor editing</li>
@@ -25,6 +26,7 @@
     <img alt="print" src="./src/main/resources/images/print1.png" width="500">
 </p>
 
+## 🚀 How to run?
 <p style="font-size: 22px; font-weight: 600;">🐧 Running on Linux</p>
 
 <p style="font-size: 16px; line-height: 1.6;">
@@ -67,6 +69,8 @@
     <code>mvn exec:java -Dexec.mainClass="com.joselucasapp.okavangoide.Main"</code>
   </li>
 </ol>
+
+<br />
 
 <p style="font-size: 22px; font-weight: 600;">🪟 Running on Windows</p>
 
@@ -116,7 +120,7 @@
 
 <p style="font-size: 16px;">Tip: You can use Windows Terminal or Git Bash for a better CLI experience with Git and Maven.</p>
 
-<p style="font-size: 18px; font-weight: 500;">🤝 Contributing</p>
+## 🤝 Contributing
 <p style="font-size: 16px;">We welcome contributions! Please read our <a href="./CONTRIBUTING.md">Contributing Guide</a> and <a href="./CODE_OF_CONDUCT.md">Code of Conduct</a> before submitting pull requests.</p>
 
 <p style="font-size: 12px; color: #888888; text-align: center; margin-top: 40px;">
