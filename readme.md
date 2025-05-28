@@ -1,14 +1,15 @@
 <p align="center">
     <img alt="logo" src="./src/main/resources/images/logo.png" width="150">
 </p>
-<p align="center" style="font-size: 40px; font-weight: 600;">OKavangoIDE</p>
-<p align="center" style="font-size: 20px; font-weight: 400;">The official Zumbra IDE</p>
+
+# OKavangoIDE
+### The official Zumbra IDE
 
 <blockquote style="font-size: 16px; font-style: italic;">
   ⚙️ <em>ZUMBRA is a simple, fun, and expressive programming language made for learning, experimenting, and enjoying the beauty of code. OKavangoIDE or, for close friends, <strong>OKIDE</strong> was created to help you enjoy coding with Zumbra, featuring syntax highlighting, file management, and a smooth development experience.</em>
 </blockquote>
 
-<p style="font-size: 18px; font-weight: 500;">🚀 Features</p>
+## 🚀 Features
 <ul style="font-size: 16px; line-height: 1.6;">
   <li>🎨 Real-time syntax highlighting for Zumbra</li>
   <li>📂 File explorer with in-editor editing</li>
@@ -25,6 +26,7 @@
     <img alt="print" src="./src/main/resources/images/print1.png" width="500">
 </p>
 
+## 🚀 How to run?
 <p style="font-size: 22px; font-weight: 600;">🐧 Running on Linux</p>
 
 <p style="font-size: 16px; line-height: 1.6;">
@@ -68,7 +70,57 @@
   </li>
 </ol>
 
-<p style="font-size: 18px; font-weight: 500;">🤝 Contributing</p>
+<br />
+
+<p style="font-size: 22px; font-weight: 600;">🪟 Running on Windows</p>
+
+<p style="font-size: 16px; line-height: 1.6;">
+  <strong>OKavangoIDE</strong> also runs smoothly on Windows. Just follow the steps below to get everything set up.
+</p>
+
+<p style="font-size: 18px; font-weight: 500;">📦 Requirements</p>
+<ul style="font-size: 16px; line-height: 1.6;">
+  <li>Java Development Kit (JDK) 17 or later (JDK 21 recommended)</li>
+  <li>Apache Maven</li>
+  <li>Git</li>
+</ul>
+
+<p style="font-size: 18px; font-weight: 500;">🛠️ Installation Steps</p>
+<ol style="font-size: 16px; line-height: 1.8;">
+  <li>
+    <strong>Install the JDK</strong><br>
+    Download the JDK from Oracle or use a distribution like OpenJDK via <a href="https://adoptium.net/">https://adoptium.net/</a>.<br>
+    After installation, set the <code>JAVA_HOME</code> environment variable and add the JDK <code>bin</code> folder to your system <code>Path</code>.
+  </li>
+  <li>
+    <strong>Install Apache Maven</strong><br>
+    Download it from <a href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a><br>
+    Extract the files and add the Maven <code>bin</code> folder to your <code>Path</code> environment variable.
+  </li>
+  <li>
+    <strong>Verify Java and Maven are working</strong><br>
+    Open Command Prompt or PowerShell and run:<br>
+    <code>java -version</code><br>
+    <code>mvn -v</code>
+  </li>
+  <li>
+    <strong>Clone the repository</strong><br>
+    <code>git clone https://github.com/JoseLucasapp/OkavangoIDE.git</code><br>
+    <code>cd OkavangoIDE</code>
+  </li>
+  <li>
+    <strong>Build the project</strong><br>
+    <code>mvn clean install</code>
+  </li>
+  <li>
+    <strong>Run the application</strong><br>
+    <code>mvn exec:java -Dexec.mainClass="com.joselucasapp.okavangoide.Main"</code>
+  </li>
+</ol>
+
+<p style="font-size: 16px;">Tip: You can use Windows Terminal or Git Bash for a better CLI experience with Git and Maven.</p>
+
+## 🤝 Contributing
 <p style="font-size: 16px;">We welcome contributions! Please read our <a href="./CONTRIBUTING.md">Contributing Guide</a> and <a href="./CODE_OF_CONDUCT.md">Code of Conduct</a> before submitting pull requests.</p>
 
 <p style="font-size: 12px; color: #888888; text-align: center; margin-top: 40px;">
