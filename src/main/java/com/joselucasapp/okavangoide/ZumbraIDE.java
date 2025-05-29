@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import com.joselucasapp.okavangoide.helpers.ScreenData;
 import org.fxmisc.richtext.CodeArea;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ZumbraIDE extends Application{
@@ -63,6 +64,8 @@ public class ZumbraIDE extends Application{
 
         StackPane lateral_menu = content.getLateralMenu(screenX);
 
+        File currentDir = new File(System.getProperty("user.dir"));
+        selectFile.loadDirectory(currentDir, lateral_menu, tabEditors, editorField, stage);
         openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, tabEditors, editorField));
         HBox body = new HBox(lateral_menu, layout);
         HBox.setHgrow(body, Priority.ALWAYS);
