@@ -167,26 +167,39 @@ public class SelectFile {
 
             });
 
-            treeView.setOnMouseClicked(event ->{
+            treeView.setOnMouseClicked(event -> {
                 TreeItem<File> selected = this.treeView.getSelectionModel().getSelectedItem();
-                if (selected != null && selected.getValue().isFile()){
-                    try{
-                        String content = Files.readString(selected.getValue().toPath());
+
+                if (selected != null && selected.getValue().isFile()) {
+                    File selectedFile = selected.getValue();
+
+                    for (Tab tab : tabPane.getTabs()) {
+                        if (tab.getText().equals(selectedFile.getName())
+                                && tab.getUserData() instanceof File
+                                && ((File) tab.getUserData()).getAbsolutePath().equals(selectedFile.getAbsolutePath())) {
+                            tabPane.getSelectionModel().select(tab);
+                            return;
+                        }
+                    }
+
+                    try {
+                        String content = Files.readString(selectedFile.toPath());
                         CodeArea newEditor = editor.start();
                         newEditor.replaceText(content);
 
-                        Tab tab = new Tab(selected.getValue().getName());
+                        Tab tab = new Tab(rootFolder.toPath().relativize(selectedFile.toPath()).toString());
                         tab.setContent(newEditor);
-                        tab.setUserData(newEditor);
+
+                        tab.setUserData(selectedFile);
 
                         tabPane.getTabs().add(tab);
-
                         tabPane.getSelectionModel().select(tab);
-                    }catch (Exception ex){
-                        System.out.println("Failed to load:"+ ex.getMessage());
+                    } catch (Exception ex) {
+                        System.out.println("Failed to load: " + ex.getMessage());
                     }
                 }
             });
+
 
             treeView.setMaxHeight(Double.MAX_VALUE);
             treeView.setMinHeight(0);
@@ -247,7 +260,7 @@ public class SelectFile {
         file.delete();
     }
 
-    public void loadDirectory(File rootFolder, StackPane lateralMenu, TabPane tabPane, Editor editor, Stage stage){
+    public void loadDirectory(File rootFolder, StackPane lateralMenu, TabPane tabPane, Editor editor){
         if (rootFolder != null && rootFolder.isDirectory()){
             TreeItem<File> rootItem = createNode(rootFolder);
             this.treeView = new TreeView<>(rootItem);

@@ -65,7 +65,7 @@ public class ZumbraIDE extends Application{
         StackPane lateral_menu = content.getLateralMenu(screenX);
 
         File currentDir = new File(System.getProperty("user.dir"));
-        selectFile.loadDirectory(currentDir, lateral_menu, tabEditors, editorField, stage);
+        selectFile.loadDirectory(currentDir, lateral_menu, tabEditors, editorField);
         openFile.setOnAction(e-> selectFile.start(stage, lateral_menu, tabEditors, editorField));
         HBox body = new HBox(lateral_menu, layout);
         HBox.setHgrow(body, Priority.ALWAYS);
@@ -91,7 +91,7 @@ public class ZumbraIDE extends Application{
     private Tab createEditorTab(Editor editorField){
         CodeArea editor = editorField.start();
 
-        editor.replaceText("Welcome to OkavangoIDE !!!");
+        editor.replaceText("//Welcome to OkavangoIDE !!!");
 
         Tab tab = new Tab("Welcome");
         tab.setContent(editor);
