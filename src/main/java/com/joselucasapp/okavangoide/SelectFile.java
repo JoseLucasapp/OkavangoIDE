@@ -16,15 +16,17 @@ import java.nio.file.Files;
 import java.util.Objects;
 
 public class SelectFile {
+    private File rootFolder;
     private TreeView<File> treeView = new TreeView<>();
 
     public void start(Stage stage, StackPane lateralMenu, TabPane tabPane, Editor editor) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select a Zumbra folder");
 
-        File rootFolder = directoryChooser.showDialog(stage);
-        if (rootFolder != null && rootFolder.isDirectory()) {
-            TreeItem<File> rootItem = createNode(rootFolder);
+        setRootFolder(directoryChooser.showDialog(stage));
+        if (this.rootFolder != null && this.rootFolder.isDirectory()) {
+
+            TreeItem<File> rootItem = createNode(this.rootFolder);
             this.treeView = new TreeView<>(rootItem);
             this.treeView.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
             this.treeView.setStyle(
@@ -190,7 +192,7 @@ public class SelectFile {
                         Tab tab = new Tab(rootFolder.toPath().relativize(selectedFile.toPath()).toString());
                         tab.setContent(newEditor);
 
-                        tab.setUserData(selectedFile);
+                        tab.setUserData(newEditor);
 
                         tabPane.getTabs().add(tab);
                         tabPane.getSelectionModel().select(tab);
@@ -262,6 +264,7 @@ public class SelectFile {
 
     public void loadDirectory(File rootFolder, StackPane lateralMenu, TabPane tabPane, Editor editor){
         if (rootFolder != null && rootFolder.isDirectory()){
+            this.rootFolder = rootFolder;
             TreeItem<File> rootItem = createNode(rootFolder);
             this.treeView = new TreeView<>(rootItem);
             this.treeView.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
@@ -430,5 +433,14 @@ public class SelectFile {
             lateralMenu.setStyle("-fx-background-color: #130B28;");
         }
     }
+
+    public File getRootFolder(){
+        return rootFolder;
+    }
+
+    public void setRootFolder(File folder) {
+        this.rootFolder = folder;
+    }
+
 }
 

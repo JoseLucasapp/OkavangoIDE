@@ -42,7 +42,7 @@ public class ZumbraIDE extends Application{
 
         TextArea output = textField.start(0.2 * screenY);
 
-        Button runButton = buttons.getRunButton(tabEditors, runCode, output);
+        Button runButton = buttons.getRunButton(tabEditors, runCode, output, selectFile::getRootFolder);
         Button openFile = buttons.getOpenFileButton();
 
         HBox.setHgrow(spacer, Priority.ALWAYS);

@@ -6,27 +6,39 @@ import org.fxmisc.richtext.CodeArea;
 import java.io.*;
 
 public class RunCode {
-    public void start(CodeArea editor, TextArea output){
-        try{
-            File temp = File.createTempFile("code", ".zum");
-            try(FileWriter fw = new FileWriter(temp)){
+    public void start(CodeArea editor, TextArea output, File workingDirectory) {
+        try {
+            File mainFile = new File(workingDirectory, "okavango_temp.zum");
+            try (FileWriter fw = new FileWriter(mainFile)) {
                 fw.write(editor.getText());
             }
 
-            ProcessBuilder pb = new ProcessBuilder("zumbra", temp.getAbsolutePath());
-            Process proc = pb.start();
+            ProcessBuilder pb = new ProcessBuilder("zumbra", "okavango_temp.zum");
+            pb.directory(workingDirectory);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            String line;
+            Process proc = pb.start();
+            proc.waitFor();
+
+            BufferedReader stdOut = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            BufferedReader stdErr = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+
             StringBuilder result = new StringBuilder();
-            while ((line = reader.readLine()) != null){
+            String line;
+
+            while ((line = stdOut.readLine()) != null) {
                 result.append(line).append("\n");
             }
 
-            output.setText(result.toString());
+            while ((line = stdErr.readLine()) != null) {
+                result.append("[err] ").append(line).append("\n");
+            }
 
-        }catch (IOException ex){
-            output.setText("Error: " + ex.getMessage());
+            output.setText(result.toString());
+            mainFile.delete();
+
+        } catch (IOException | InterruptedException ex) {
+            output.setText("Error trying to execute: " + ex.getMessage());
         }
     }
 }
+
