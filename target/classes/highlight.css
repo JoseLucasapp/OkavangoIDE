@@ -5,6 +5,10 @@
     -fx-padding: 10px;
 }
 
+.code-area .caret {
+    -fx-stroke: white;
+}
+
 .default-text {
     -fx-fill: #f8f8f2;
 }

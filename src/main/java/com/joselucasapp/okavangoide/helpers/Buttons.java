@@ -7,9 +7,13 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import org.fxmisc.richtext.CodeArea;
 
+import java.io.File;
+import java.util.function.Supplier;
+
 public class Buttons {
-    public Button getRunButton(TabPane tabEditors, RunCode runCode, TextArea output) {
+    public Button getRunButton(TabPane tabEditors, RunCode runCode, TextArea output, Supplier<File> rootFolderSupplier ) {
         Button runButton = new Button("Run");
+
 
         runButton.setStyle(
                 "-fx-font-size: 14px;" +
@@ -38,12 +42,22 @@ public class Buttons {
 
         runButton.setOnAction(e -> {
             Tab selectedTab = tabEditors.getSelectionModel().getSelectedItem();
-            if(selectedTab != null){
-                CodeArea editor = (CodeArea) selectedTab.getUserData();
-                runCode.start(editor, output);
-            }
+            if (selectedTab != null) {
+                Object userData = selectedTab.getUserData();
 
+                if (userData instanceof CodeArea editor) {
+                    File workingDir = rootFolderSupplier.get();
+                    if (workingDir != null) {
+                        runCode.start(editor, output, workingDir);
+                    } else {
+                        output.setText("⚠ No selected folders.");
+                    }
+                } else {
+                    output.setText("⚠ This tab has not a valid editor.");
+                }
+            }
         });
+
         return runButton;
     }
 

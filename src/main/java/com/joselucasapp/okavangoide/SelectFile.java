@@ -16,15 +16,17 @@ import java.nio.file.Files;
 import java.util.Objects;
 
 public class SelectFile {
+    private File rootFolder;
     private TreeView<File> treeView = new TreeView<>();
 
     public void start(Stage stage, StackPane lateralMenu, TabPane tabPane, Editor editor) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select a Zumbra folder");
 
-        File rootFolder = directoryChooser.showDialog(stage);
-        if (rootFolder != null && rootFolder.isDirectory()) {
-            TreeItem<File> rootItem = createNode(rootFolder);
+        setRootFolder(directoryChooser.showDialog(stage));
+        if (this.rootFolder != null && this.rootFolder.isDirectory()) {
+
+            TreeItem<File> rootItem = createNode(this.rootFolder);
             this.treeView = new TreeView<>(rootItem);
             this.treeView.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
             this.treeView.setStyle(
@@ -167,26 +169,39 @@ public class SelectFile {
 
             });
 
-            treeView.setOnMouseClicked(event ->{
+            treeView.setOnMouseClicked(event -> {
                 TreeItem<File> selected = this.treeView.getSelectionModel().getSelectedItem();
-                if (selected != null && selected.getValue().isFile()){
-                    try{
-                        String content = Files.readString(selected.getValue().toPath());
+
+                if (selected != null && selected.getValue().isFile()) {
+                    File selectedFile = selected.getValue();
+
+                    for (Tab tab : tabPane.getTabs()) {
+                        if (tab.getText().equals(selectedFile.getName())
+                                && tab.getUserData() instanceof File
+                                && ((File) tab.getUserData()).getAbsolutePath().equals(selectedFile.getAbsolutePath())) {
+                            tabPane.getSelectionModel().select(tab);
+                            return;
+                        }
+                    }
+
+                    try {
+                        String content = Files.readString(selectedFile.toPath());
                         CodeArea newEditor = editor.start();
                         newEditor.replaceText(content);
 
-                        Tab tab = new Tab(selected.getValue().getName());
+                        Tab tab = new Tab(rootFolder.toPath().relativize(selectedFile.toPath()).toString());
                         tab.setContent(newEditor);
+
                         tab.setUserData(newEditor);
 
                         tabPane.getTabs().add(tab);
-
                         tabPane.getSelectionModel().select(tab);
-                    }catch (Exception ex){
-                        System.out.println("Failed to load:"+ ex.getMessage());
+                    } catch (Exception ex) {
+                        System.out.println("Failed to load: " + ex.getMessage());
                     }
                 }
             });
+
 
             treeView.setMaxHeight(Double.MAX_VALUE);
             treeView.setMinHeight(0);
@@ -247,8 +262,9 @@ public class SelectFile {
         file.delete();
     }
 
-    public void loadDirectory(File rootFolder, StackPane lateralMenu, TabPane tabPane, Editor editor, Stage stage){
+    public void loadDirectory(File rootFolder, StackPane lateralMenu, TabPane tabPane, Editor editor){
         if (rootFolder != null && rootFolder.isDirectory()){
+            this.rootFolder = rootFolder;
             TreeItem<File> rootItem = createNode(rootFolder);
             this.treeView = new TreeView<>(rootItem);
             this.treeView.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
@@ -417,5 +433,14 @@ public class SelectFile {
             lateralMenu.setStyle("-fx-background-color: #130B28;");
         }
     }
+
+    public File getRootFolder(){
+        return rootFolder;
+    }
+
+    public void setRootFolder(File folder) {
+        this.rootFolder = folder;
+    }
+
 }
 

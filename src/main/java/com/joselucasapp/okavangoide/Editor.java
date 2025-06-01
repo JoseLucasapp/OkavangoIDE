@@ -1,5 +1,6 @@
 package com.joselucasapp.okavangoide;
 
+import com.joselucasapp.okavangoide.helpers.RightClickMouse;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -39,6 +40,7 @@ public class Editor {
         editor.getStyleClass().add("code-area");
         editor.setEditable(true);
         editor.setWrapText(true);
+        editor.setContextMenu(RightClickMouse.createContextMenu(editor));
 
         editor.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/highlight.css")).toExternalForm());
 
