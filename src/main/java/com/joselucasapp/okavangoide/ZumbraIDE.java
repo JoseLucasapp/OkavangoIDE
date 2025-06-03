@@ -1,7 +1,6 @@
 package com.joselucasapp.okavangoide;
 
-import com.joselucasapp.okavangoide.helpers.Buttons;
-import com.joselucasapp.okavangoide.helpers.Content;
+import com.joselucasapp.okavangoide.helpers.*;
 import com.joselucasapp.okavangoide.helpers.TextField;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import com.joselucasapp.okavangoide.helpers.ScreenData;
 import org.fxmisc.richtext.CodeArea;
 
 import java.io.File;
@@ -60,9 +58,9 @@ public class ZumbraIDE extends Application{
         editor_box.setStyle("-fx-text-fill: #171131; -fx-font-family: Fira code; -fx-font-size: 16px; -fx-background-color: #171131;");
 
         VBox.setVgrow(tabEditors, Priority.ALWAYS);
-        VBox layout = content.getLayout(editor_box, layout_infos_output, screenX, screenY);
+        VBox layout = content.getLayout(editor_box, layout_infos_output, stage);
 
-        StackPane lateral_menu = content.getLateralMenu(screenX);
+        StackPane lateral_menu = content.getLateralMenu(stage);
 
         File currentDir = new File(System.getProperty("user.dir"));
         selectFile.loadDirectory(currentDir, lateral_menu, tabEditors, editorField);
@@ -72,13 +70,17 @@ public class ZumbraIDE extends Application{
         body.setPrefHeight(screenY);
 
         VBox okavangoIDE = new VBox(body);
-        okavangoIDE.setMinWidth(screenX);
+        okavangoIDE.prefWidthProperty().bind(stage.widthProperty());
         okavangoIDE.setStyle(
                 "-fx-background-color: #130B28;"
         );
 
-        VBox root = new VBox(topBar.customTopBar(stage, screenX, screenY, openFile, runButton), okavangoIDE);
+        VBox root = new VBox(topBar.customTopBar(stage, openFile, runButton), okavangoIDE);
         Scene scene = new Scene(root, screenX, screenY);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+
+        ResizeWindow.makeResizable(stage, scene);
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> selectFile.saveFile(e, tabEditors));
 
         stage.setTitle("OkavangoIDE");
