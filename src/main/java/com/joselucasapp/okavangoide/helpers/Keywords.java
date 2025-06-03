@@ -37,6 +37,9 @@ public class Keywords {
 
             //extras
             Map.entry("date", "keyword-fct"),
+            Map.entry("dotenvLoad", "keyword-fct"),
+            Map.entry("dotenvGet", "keyword-fct"),
+            Map.entry("hashCode", "keyword-fct"),
 
             //http
             Map.entry("get", "keyword-fct"),
@@ -50,9 +53,24 @@ public class Keywords {
             Map.entry("input", "keyword-fct"),
             Map.entry("show", "keyword-fct"),
 
+            //jwt
+            Map.entry("jwtCreateToken", "keyword-fct"),
+            Map.entry("jwtVerifyToken", "keyword-fct"),
+
             //messages
             Map.entry("sendEmail", "keyword-fct"),
             Map.entry("sendWhatsapp", "keyword-fct"),
+
+            //Mysql
+            Map.entry("mysqlConnection", "keyword-fct"),
+            Map.entry("mysqlCreateTable", "keyword-fct"),
+            Map.entry("mysqlDeleteFromTable", "keyword-fct"),
+            Map.entry("mysqlDropTable", "keyword-fct"),
+            Map.entry("mysqlGetFromTable", "keyword-fct"),
+            Map.entry("mysqlInsertIntoTable", "keyword-fct"),
+            Map.entry("mysqlShowTables", "keyword-fct"),
+            Map.entry("mysqlShowTableColumns", "keyword-fct"),
+            Map.entry("mysqlUpdateIntoTable", "keyword-fct"),
 
             //numbersUtils
             Map.entry("bhaskara", "keyword-fct"),
